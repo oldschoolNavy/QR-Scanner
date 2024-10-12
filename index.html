@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QR Code Scanner</title>
+    <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
+</head>
+<body>
+    <h1>Scan Student QR Code</h1>
+    <div id="reader" style="width:500px;"></div>
+    <div id="result"></div>
+    <script>
+        function onScanSuccess(decodedText, decodedResult) {
+            document.getElementById('result').innerHTML = `Scanned: ${decodedText}`;
+            // Send the scanned data to your Google Apps Script
+            fetch('YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `action=addLap&studentId=${encodeURIComponent(decodedText)}`
+            })
+            .then(response => response.json())
+            .then(data => alert(data.message))
+            .catch((error) => console.error('Error:', error));
+        }
+
+        const html5QrCode = new Html5Qrcode("reader");
+        const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+        html5QrCode.start({ facingMode: "environment" }, config, onScanSuccess);
+    </script>
+</body>
+</html>
