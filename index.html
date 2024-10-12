@@ -12,7 +12,7 @@
         function onScanSuccess(decodedText, decodedResult) {
             document.getElementById('result').innerHTML = `Scanned: ${decodedText}`;
             // Send the scanned data to your Google Apps Script
-            fetch('YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL', {
+            fetch('https://script.google.com/home/projects/1OUNE6Tax_M7UbeONaTG8igrQTCDGGos1Mljfb1slqrwXgIpwEjedOb9G/edit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: `action=addLap&studentId=${encodeURIComponent(decodedText)}`
